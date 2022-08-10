@@ -20,3 +20,5 @@ Route::get('/createpost', function () {
     return view('pages.tambahBiodata');
 });
 Route::post('/simpanBiodata', [DataControl::class,"saveBiodata"]);
+
+Route::get('deletethis/{id}',[DataControl::class,"deleteData"]);

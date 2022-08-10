@@ -49,4 +49,15 @@ class DataControl extends Controller
              'biodata' => DataModel::all()
          ]);
      }
+     public function deleteData($id){
+        DataModel::destroy('delete from data_models where name = ?', [$id]);
+        if($id){
+            Session::flash('sukses','Hapus data Sukses!!');
+            return redirect('/');
+        }
+          
+     }
+
 }
+
+

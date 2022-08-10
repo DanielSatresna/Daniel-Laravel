@@ -11,6 +11,13 @@
         </div>
         <div class="body-section">
             <h2 class="section-title">Biodata</h2>
+            @csrf
+        @if ($message = Session::get('sukses'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert" >x</button>
+            <strong>{{  $message }}</strong>
+        </div>
+        @endif
             <p class="section-lead">
                 You can manage all Biodata, such as editing, deleting and more.
             </p>
@@ -52,7 +59,7 @@
                                                 <div class="bullet"></div>
                                                 <a href="#">Edit</a>
                                                 <div class="bullet"></div>
-                                                <a href="#" class="text-danger">Trash</a>
+                                                <a href="/deletethis/{{ $biodataData->id }}" class="text-danger">Trash</a>
                                             </div>
                                         </td>
                                         <td>

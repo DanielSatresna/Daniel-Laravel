@@ -9,5 +9,5 @@ class DataModel extends Model
 {
     use HasFactory;
     protected $table='data_models';
-    protected $fillable=['nama', 'NIS', 'kelas', 'tempat_lahir', 'tanggal_lahir'];
+    protected $fillable=['nama', 'NIS', 'email', 'kelas', 'tempat_lahir', 'tanggal_lahir'];
 }

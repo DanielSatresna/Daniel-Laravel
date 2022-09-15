@@ -13,6 +13,7 @@ class DataControl extends Controller
         $request->validate([
          "nama"=>"required|max:255",
          "NIS"=>"required",
+         "email"=>"required",
          "kelas"=>"required",
          "tempat_lahir"=>"required",
          "tanggal_lahir"=>"required"
@@ -21,6 +22,7 @@ class DataControl extends Controller
         [
             'nama.required'=>'Nama tidak boleh kosong',
             'NIS.required'=>'NIS tidak boleh kosong',
+            'email.required'=>'Email tidak boleh kosong',
             'kelas.required'=>'Kelas tidak boleh kosong',
             'tempat_lahir.required'=>'Tempat Lahir tidak boleh kosong',
             'tanggal_lahir.required'=>'Tanggal Lahir boleh kosong',
@@ -30,15 +32,12 @@ class DataControl extends Controller
             [
             'nama'=>$request->nama,
             'NIS'=>$request->NIS,
+            'email'=>$request->email,
             'kelas'=>$request->kelas,
             'tempat_lahir'=>$request->tempat_lahir,
             'tanggal_lahir'=>$request->tanggal_lahir,
             ]);
-
-            if($data){
-                Session::flash('sukses','Tambah data SUKSES!!!');
-                return redirect('/createpost');
-            }
+            return redirect('/createpost')->with('sukses', 'Tambah Data SUKSES!!!!');
 
 
         // dd($data);
@@ -50,13 +49,53 @@ class DataControl extends Controller
          ]);
      }
      public function deleteData($id){
-        DataModel::destroy('delete from data_models where name = ?', [$id]);
-        if($id){
-            Session::flash('sukses','Hapus data Sukses!!');
-            return redirect('/');
-        }
-          
+        DataModel::destroy($id);
+        return redirect('/')->with('sukses', 'Hapus Data Berhasil');
      }
+
+     public function ubahView(DataModel $id)
+     {
+        return view("pages.ubahBiodata", [
+            "biodata"=>$id]);
+        
+     }
+
+     public function ubahData(Request $request, DataModel $id)
+     {
+        $request->validate([
+            "nama"=>"required|max:255",
+            "NIS"=>"required",
+            "email"=>"required",
+            "kelas"=>"required",
+            "tempat_lahir"=>"required",
+            "tanggal_lahir"=>"required"
+           ],
+   
+           [
+               'nama.required'=>'Nama tidak boleh kosong',
+               'NIS.required'=>'NIS tidak boleh kosong',
+               'email.required'=>'Email tidak boleh kosong',
+               'kelas.required'=>'Kelas tidak boleh kosong',
+               'tempat_lahir.required'=>'Tempat Lahir tidak boleh kosong',
+               'tanggal_lahir.required'=>'Tanggal Lahir boleh kosong',
+           ]);
+
+           $data=
+            [
+            'nama'=>$request->nama,
+            'NIS'=>$request->NIS,
+            'email'=>$request->email,
+            'kelas'=>$request->kelas,
+            'tempat_lahir'=>$request->tempat_lahir,
+            'tanggal_lahir'=>$request->tanggal_lahir,
+            ];
+            DataModel::where('id', $id->id)->update($data);
+
+
+            return redirect("/")->with("sukses", "edit data {$id->nama} sukses");
+
+     }
+
 
 }
 

@@ -17,6 +17,7 @@ class CreateDataModelsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('NIS');
+            $table->string('email');
             $table->string('kelas');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
